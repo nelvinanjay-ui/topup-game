@@ -22,7 +22,6 @@ function selectGame(game, button) {
   });
 
   button.classList.add("active");
-}
 
 function order() {
   const playerId = document.getElementById("playerId").value;
@@ -40,8 +39,13 @@ function order() {
     return;
   }
 
+  // Membuat nomor pesanan
+  const orderNumber =
+    "TOPUP-" + Math.floor(100000 + Math.random() * 900000);
+
   result.innerHTML = `
     ✅ Pesanan berhasil dibuat!<br><br>
+    <b>Nomor Pesanan: ${orderNumber}</b><br>
     ID Player: ${playerId}<br>
     Server/Zone: ${zone || "-"}<br>
     Nominal: ${selectedNominal}<br>
