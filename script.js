@@ -65,3 +65,18 @@ function checkOrder() {
 
   status.textContent = "🔎 Pesanan sedang dicek...";
     }
+function goToPayment() {
+  if (!selectedNominal) {
+    alert("⚠️ Pilih nominal top up terlebih dahulu.");
+    return;
+  }
+
+  const payment = document.getElementById("payment").value;
+
+  alert(
+    "💳 Pembayaran\n\n" +
+    "Nominal: " + selectedNominal + "\n" +
+    "Harga: Rp" + selectedPrice.toLocaleString("id-ID") + "\n" +
+    "Metode: " + payment
+  );
+}
