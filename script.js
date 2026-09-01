@@ -40,7 +40,15 @@ function order() {
 
   const orderNumber =
     "TOPUP-" + Math.floor(100000 + Math.random() * 900000);
-
+localStorage.setItem("orderData", JSON.stringify({
+  orderNumber: orderNumber,
+  game: document.getElementById("selectedGame").textContent,
+  playerId: playerId,
+  zone: zone || "-",
+  nominal: selectedNominal,
+  price: selectedPrice,
+  payment: payment
+}));
   result.innerHTML =
     "✅ Pesanan berhasil dibuat!<br><br>" +
     "<b>Nomor Pesanan: " + orderNumber + "</b><br>" +
