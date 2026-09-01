@@ -60,7 +60,21 @@
 <script>
 function choosePayment(method) {
   const data = JSON.parse(localStorage.getItem("orderData"));
+let instruction = "";
 
+if (method === "QRIS") {
+  instruction =
+    "<h3>📱 Pembayaran QRIS</h3>" +
+    "<p>Scan QRIS untuk melanjutkan pembayaran.</p>" +
+    "<p>⚠️ QRIS masih dalam mode demo.</p>";
+} else {
+  instruction =
+    "<h3>💳 Instruksi Pembayaran</h3>" +
+    "<p>Metode: <b>" + method + "</b></p>" +
+    "<p>⚠️ Pembayaran masih dalam mode demo.</p>";
+}
+
+document.getElementById("paymentInstruction").innerHTML = instruction;
   document.getElementById("paymentResult").innerHTML =
     "✅ Metode pembayaran dipilih: <b>" + method + "</b>";
 
