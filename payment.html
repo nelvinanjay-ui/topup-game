@@ -36,21 +36,21 @@
 
   <div id="paymentResult" class="result"></div>
 
-<div id="orderDetail" class="result" style="display:none;">
-  <h3>📋 Detail Pesanan</h3>
+  <div id="orderDetail" class="result" style="display:none;">
+    <h3>📋 Detail Pesanan</h3>
 
-  <p><b>Nomor Pesanan:</b> <span id="detailOrder">-</span></p>
-  <p><b>Game:</b> <span id="detailGame">-</span></p>
-  <p><b>ID Player:</b> <span id="detailPlayer">-</span></p>
-  <p><b>Zone:</b> <span id="detailZone">-</span></p>
-  <p><b>Nominal:</b> <span id="detailNominal">-</span></p>
-  <p><b>Harga:</b> <span id="detailPrice">-</span></p>
-  <p><b>Pembayaran:</b> <span id="detailPayment">-</span></p>
+    <p><b>Nomor Pesanan:</b> <span id="detailOrder">-</span></p>
+    <p><b>Game:</b> <span id="detailGame">-</span></p>
+    <p><b>ID Player:</b> <span id="detailPlayer">-</span></p>
+    <p><b>Zone:</b> <span id="detailZone">-</span></p>
+    <p><b>Nominal:</b> <span id="detailNominal">-</span></p>
+    <p><b>Harga:</b> <span id="detailPrice">-</span></p>
+    <p><b>Pembayaran:</b> <span id="detailPayment">-</span></p>
 
-  <hr>
+    <hr>
 
-  <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
-</div>
+    <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
+  </div>
 
   <button class="btn full" onclick="history.back()">
     ← Kembali
@@ -58,25 +58,24 @@
 </section>
 
 <script>
-<script>
 function choosePayment(method) {
-  const orderNumber =
-    "TOPUP-" + Math.floor(100000 + Math.random() * 900000);
+  const data = JSON.parse(localStorage.getItem("orderData"));
 
   document.getElementById("paymentResult").innerHTML =
     "✅ Metode pembayaran dipilih: <b>" + method + "</b>";
 
-  document.getElementById("detailOrder").textContent = orderNumber;
-  document.getElementById("detailGame").textContent = "Mobile Legends";
-  document.getElementById("detailPlayer").textContent = "-";
-  document.getElementById("detailZone").textContent = "-";
-  document.getElementById("detailNominal").textContent = "-";
-  document.getElementById("detailPrice").textContent = "-";
-  document.getElementById("detailPayment").textContent = method;
+  if (data) {
+    document.getElementById("detailOrder").textContent = data.orderNumber;
+    document.getElementById("detailGame").textContent = data.game;
+    document.getElementById("detailPlayer").textContent = data.playerId;
+    document.getElementById("detailZone").textContent = data.zone;
+    document.getElementById("detailNominal").textContent = data.nominal;
+    document.getElementById("detailPrice").textContent =
+      "Rp" + data.price.toLocaleString("id-ID");
+  }
 
+  document.getElementById("detailPayment").textContent = method;
   document.getElementById("orderDetail").style.display = "block";
-}
-</script>
 }
 </script>
 
