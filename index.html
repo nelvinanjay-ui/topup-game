@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TopUpKu - Top Up Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<header>
+  <div class="logo">TopUp<span>Ku</span></div>
+  <nav>
+    <a href="#games">Game</a>
+    <a href="#order">Top Up</a>
+    <a href="#cek">Cek Pesanan</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="badge">⚡ TOP UP CEPAT & MUDAH</p>
+    <h1>Top Up Game<br><span>Murah & Cepat</span></h1>
+    <p>Pilih game favoritmu dan lakukan top up dengan mudah.</p>
+    <a href="#games" class="btn">Mulai Top Up</a>
+  </div>
+</section>
+
+<section id="games" class="section">
+  <h2>🎮 Pilih Game</h2>
+
+  <div class="games">
+    <button class="game active" onclick="selectGame('Mobile Legends', this)">
+      🎮
+      <b>Mobile Legends</b>
+      <small>Diamond</small>
+    </button>
+
+    <button class="game" onclick="selectGame('Free Fire', this)">
+      🔥
+      <b>Free Fire</b>
+      <small>Diamond</small>
+    </button>
+
+    <button class="game" onclick="selectGame('PUBG Mobile', this)">
+      🔫
+      <b>PUBG Mobile</b>
+      <small>UC</small>
+    </button>
+  </div>
+</section>
+
+<section id="order" class="section card">
+
+  <h2 id="selectedGame">Mobile Legends</h2>
+
+  <label>ID Player</label>
+  <input id="playerId" type="text" placeholder="Masukkan ID Player">
+
+  <label>Server / Zone</label>
+  <input id="zone" type="text" placeholder="Masukkan Server / Zone">
+
+  <label>Pilih Nominal</label>
+
+  <div class="nominals">
+
+    <button onclick="selectNominal(this, '86 Diamond', 20000)">
+      86 Diamond
+      <b>Rp20.000</b>
+    </button>
+
+    <button onclick="selectNominal(this, '172 Diamond', 39000)">
+      172 Diamond
+      <b>Rp39.000</b>
+    </button>
+
+    <button onclick="selectNominal(this, '257 Diamond', 57000)">
+      257 Diamond
+      <b>Rp57.000</b>
+    </button>
+
+    <button onclick="selectNominal(this, '344 Diamond', 75000)">
+      344 Diamond
+      <b>Rp75.000</b>
+    </button>
+
+  </div>
+
+  <label>Metode Pembayaran</label>
+
+  <select id="payment">
+    <option>DANA</option>
+    <option>GoPay</option>
+    <option>OVO</option>
+    <option>QRIS</option>
+  </select>
+
+  <button class="btn full" onclick="order()">
+    Buat Pesanan
+  </button>
+
+  <div id="result" class="result"></div>
+
+</section>
+
+<section id="cek" class="section card">
+
+  <h2>🔎 Cek Pesanan</h2>
+
+  <input id="orderCheck" placeholder="Masukkan nomor pesanan">
+
+  <button class="btn full" onclick="checkOrder()">
+    Cek Pesanan
+  </button>
+
+  <div id="status" class="result"></div>
+
+</section>
+
+<footer>
+  © 2026 TopUpKu
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+  </html>
