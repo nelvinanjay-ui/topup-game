@@ -94,3 +94,33 @@ footer {
   color: #777;
   font-size: 13px;
 }
+.nominals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.nominals button {
+  background: white;
+  color: #222;
+  border: 2px solid #ddd;
+  padding: 15px;
+  text-align: left;
+}
+
+.nominals button b {
+  display: block;
+  color: #6c5ce7;
+  margin-top: 5px;
+}
+
+.nominals button.active {
+  border-color: #6c5ce7;
+  background: #f0edff;
+}
+
+.nominals button:hover {
+  border-color: #6c5ce7;
+}
