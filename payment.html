@@ -14,14 +14,40 @@
 
   <p>Pesanan kamu sudah dibuat.</p>
 
-  <div id="paymentInfo" class="result">
-    Silakan pilih metode pembayaran untuk melanjutkan.
+  <div class="payment-list">
+
+    <button class="payment-option" onclick="choosePayment('DANA')">
+      💙 DANA
+    </button>
+
+    <button class="payment-option" onclick="choosePayment('GoPay')">
+      💚 GoPay
+    </button>
+
+    <button class="payment-option" onclick="choosePayment('OVO')">
+      💜 OVO
+    </button>
+
+    <button class="payment-option" onclick="choosePayment('QRIS')">
+      📱 QRIS
+    </button>
+
   </div>
+
+  <div id="paymentResult" class="result"></div>
 
   <button class="btn full" onclick="history.back()">
     ← Kembali
   </button>
 </section>
+
+<script>
+function choosePayment(method) {
+  document.getElementById("paymentResult").innerHTML =
+    "✅ Metode pembayaran dipilih: <b>" + method + "</b><br><br>" +
+    "Pembayaran ini masih dalam mode demo.";
+}
+</script>
 
 </body>
 </html>
