@@ -124,3 +124,9 @@ footer {
 .nominals button:hover {
   border-color: #6c5ce7;
 }
+
+a.btn {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+}
