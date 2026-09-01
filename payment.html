@@ -58,10 +58,25 @@
 </section>
 
 <script>
+<script>
 function choosePayment(method) {
+  const orderNumber =
+    "TOPUP-" + Math.floor(100000 + Math.random() * 900000);
+
   document.getElementById("paymentResult").innerHTML =
-    "✅ Metode pembayaran dipilih: <b>" + method + "</b><br><br>" +
-    "Pembayaran ini masih dalam mode demo.";
+    "✅ Metode pembayaran dipilih: <b>" + method + "</b>";
+
+  document.getElementById("detailOrder").textContent = orderNumber;
+  document.getElementById("detailGame").textContent = "Mobile Legends";
+  document.getElementById("detailPlayer").textContent = "-";
+  document.getElementById("detailZone").textContent = "-";
+  document.getElementById("detailNominal").textContent = "-";
+  document.getElementById("detailPrice").textContent = "-";
+  document.getElementById("detailPayment").textContent = method;
+
+  document.getElementById("orderDetail").style.display = "block";
+}
+</script>
 }
 </script>
 
