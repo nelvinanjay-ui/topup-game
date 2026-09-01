@@ -62,3 +62,11 @@ function checkOrder() {
 
   status.innerHTML = "🔎 Pesanan sedang dicek...";
 }
+function goToPayment() {
+  if (selectedNominal === null) {
+    alert("⚠️ Pilih nominal top up terlebih dahulu.");
+    return;
+  }
+
+  window.location.href = "payment.html";
+}
