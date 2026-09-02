@@ -58,19 +58,15 @@ function order() {
 
 
   if (playerId === "") {
-
     result.innerHTML =
       "⚠️ Masukkan ID Player terlebih dahulu.";
-
     return;
   }
 
 
   if (selectedNominal === null) {
-
     result.innerHTML =
       "⚠️ Pilih nominal top up terlebih dahulu.";
-
     return;
   }
 
@@ -79,8 +75,6 @@ function order() {
     "TOPUP-" +
     Math.floor(100000 + Math.random() * 900000);
 
-
-  /* SIMPAN DATA PESANAN */
 
   localStorage.setItem(
     "orderData",
@@ -139,7 +133,7 @@ function order() {
 
 
 /* =========================
-   KE HALAMAN PEMBAYARAN
+   KE PEMBAYARAN
 ========================= */
 
 function goToPayment() {
@@ -215,6 +209,17 @@ function checkOrder() {
     "Menunggu Pembayaran";
 
 
+  let statusIcon = "🟡";
+
+  if (orderStatus === "Diproses") {
+    statusIcon = "🔵";
+  }
+
+  if (orderStatus === "Selesai") {
+    statusIcon = "🟢";
+  }
+
+
   status.innerHTML =
 
     "<div>" +
@@ -253,7 +258,9 @@ function checkOrder() {
 
     "<hr>" +
 
-    "<p>🟢 Status:</p>" +
+    "<p>" +
+    statusIcon +
+    " <b>Status Pesanan</b></p>" +
 
     "<h3>" +
     orderStatus +
