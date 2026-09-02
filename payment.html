@@ -4,12 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pembayaran - TopUpKu</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .payment-list {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .payment-option {
+      width: 100%;
+      padding: 16px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+    }
+
+    .payment-option:active {
+      background: #eee;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #6c5ce7;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f5f3ff;
+      border-radius: 10px;
+    }
+
+    #orderDetail {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<section class="section card">
+<div class="card">
 
   <h2>💳 Pembayaran</h2>
 
@@ -17,59 +85,57 @@
 
   <div class="payment-list">
 
-    <button class="payment-option" onclick="choosePayment('DANA')">
+    <button type="button" class="payment-option" onclick="choosePayment('DANA')">
       💙 DANA
     </button>
 
-    <button class="payment-option" onclick="choosePayment('GoPay')">
+    <button type="button" class="payment-option" onclick="choosePayment('GoPay')">
       💚 GoPay
     </button>
 
-    <button class="payment-option" onclick="choosePayment('OVO')">
+    <button type="button" class="payment-option" onclick="choosePayment('OVO')">
       💜 OVO
     </button>
 
-    <button class="payment-option" onclick="choosePayment('QRIS')">
+    <button type="button" class="payment-option" onclick="choosePayment('QRIS')">
       📱 QRIS
     </button>
 
   </div>
 
-  <div id="paymentResult" class="result"></div>
+  <div id="paymentResult"></div>
 
-  <div id="orderDetail" class="result" style="display:none;">
+  <div id="orderDetail" class="result">
 
     <h3>📋 Detail Pesanan</h3>
 
-    <p><b>Nomor Pesanan:</b> <span id="detailOrder">-</span></p>
-    <p><b>Game:</b> <span id="detailGame">-</span></p>
-    <p><b>ID Player:</b> <span id="detailPlayer">-</span></p>
-    <p><b>Zone:</b> <span id="detailZone">-</span></p>
-    <p><b>Nominal:</b> <span id="detailNominal">-</span></p>
-    <p><b>Harga:</b> <span id="detailPrice">-</span></p>
-    <p><b>Pembayaran:</b> <span id="detailPayment">-</span></p>
+    <p>Nomor Pesanan: <b id="detailOrder">-</b></p>
+    <p>Game: <b id="detailGame">-</b></p>
+    <p>ID Player: <b id="detailPlayer">-</b></p>
+    <p>Zone: <b id="detailZone">-</b></p>
+    <p>Nominal: <b id="detailNominal">-</b></p>
+    <p>Harga: <b id="detailPrice">-</b></p>
+    <p>Pembayaran: <b id="detailPayment">-</b></p>
 
     <div id="paymentInstruction"></div>
 
     <hr>
 
-    <p id="orderStatus">
-      🕐 <b>Status:</b> Menunggu pembayaran
-    </p>
-
-    <button class="btn full" onclick="demoPayment()">
-      💳 Bayar Sekarang
-    </button>
-
-    <div id="paymentStatus"></div>
+    <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
 
   </div>
 
-  <button class="btn full" onclick="history.back()">
+  <button type="button" class="btn" onclick="demoPayment()">
+    💳 Bayar Sekarang
+  </button>
+
+  <div id="paymentStatus"></div>
+
+  <button type="button" class="btn" onclick="history.back()">
     ← Kembali
   </button>
 
-</section>
+</div>
 
 <script>
 
@@ -125,18 +191,16 @@ function choosePayment(method) {
   document.getElementById("detailPayment").textContent = method;
 
   document.getElementById("orderDetail").style.display = "block";
-
 }
 
 
 function demoPayment() {
 
-  document.getElementById("orderStatus").innerHTML =
-    "✅ <b>Status:</b> Pembayaran Berhasil";
-
   document.getElementById("paymentStatus").innerHTML =
-    "<br>✅ Pembayaran berhasil (Demo)<br>" +
-    "Pesanan kamu sedang diproses.";
+    "<div class='result'>" +
+    "✅ <b>Pembayaran berhasil (Demo)</b><br><br>" +
+    "Pesanan kamu sedang diproses." +
+    "</div>";
 
 }
 
