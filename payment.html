@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Pembayaran - TopUpKu</title>
 
   <style>
@@ -64,11 +63,6 @@
       font-size: 16px;
       cursor: pointer;
       text-align: left;
-      transition: 0.2s;
-    }
-
-    .payment-option:hover {
-      border-color: #6c5ce7;
     }
 
     .payment-option.active {
@@ -96,7 +90,6 @@
     .invoice-header p {
       margin: 0;
       font-size: 14px;
-      opacity: 0.9;
     }
 
     .invoice-body {
@@ -107,7 +100,7 @@
       display: flex;
       justify-content: space-between;
       gap: 15px;
-      padding: 9px 0;
+      padding: 10px 0;
       border-bottom: 1px solid #eee;
     }
 
@@ -120,4 +113,77 @@
     }
 
     .value {
-      font-weight: bold
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .total {
+      font-size: 20px;
+      color: #6c5ce7;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff8df;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 15px;
+      background: #6c5ce7;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn.back {
+      background: #eee;
+      color: #333;
+    }
+
+    .demo {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+    }
+
+    #qris {
+      display: none;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .fake-qr {
+      width: 180px;
+      height: 180px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 8px solid #111;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #fff,
+          #fff 6px,
+          #111 6px,
+          #111 10px
+        );
+      font-weight: bold;
+      color: #111;
+    }
+
+    #success {
+      display: none;
+      margin
