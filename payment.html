@@ -100,8 +100,8 @@ function demoPayment() {
     "<br>✅ Pembayaran berhasil (Demo)<br>" +
     "Pesanan kamu sedang diproses.";
 
-  document.querySelector("#orderDetail p:last-of-type").innerHTML =
-    "✅ <b>Status:</b> Pembayaran Berhasil";
+  document.getElementById("paymentInstruction").innerHTML +=
+    "<p>✅ <b>Status: Pembayaran Berhasil</b></p>";
   }
     }  
 </script>
