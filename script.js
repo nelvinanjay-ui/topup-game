@@ -11,9 +11,10 @@ function selectNominal(button, nominal, price) {
   selectedNominal = nominal;
   selectedPrice = price;
 
-  document.querySelectorAll(".nominals button").forEach(function(btn) {
-    btn.classList.remove("active");
-  });
+  document.querySelectorAll(".nominals button")
+    .forEach(function(btn) {
+      btn.classList.remove("active");
+    });
 
   button.classList.add("active");
 }
@@ -25,11 +26,13 @@ function selectNominal(button, nominal, price) {
 
 function selectGame(game, button) {
 
-  document.getElementById("selectedGame").textContent = game;
+  document.getElementById("selectedGame")
+    .textContent = game;
 
-  document.querySelectorAll(".game").forEach(function(btn) {
-    btn.classList.remove("active");
-  });
+  document.querySelectorAll(".game")
+    .forEach(function(btn) {
+      btn.classList.remove("active");
+    });
 
   button.classList.add("active");
 }
@@ -77,29 +80,31 @@ function order() {
     Math.floor(100000 + Math.random() * 900000);
 
 
-  const orderData = {
-
-    orderNumber: orderNumber,
-
-    game:
-      document.getElementById("selectedGame").textContent,
-
-    playerId: playerId,
-
-    zone: zone || "-",
-
-    nominal: selectedNominal,
-
-    price: selectedPrice,
-
-    payment: payment
-
-  };
-
+  /* SIMPAN DATA PESANAN */
 
   localStorage.setItem(
     "orderData",
-    JSON.stringify(orderData)
+    JSON.stringify({
+
+      orderNumber: orderNumber,
+
+      game:
+        document.getElementById("selectedGame")
+        .textContent,
+
+      playerId: playerId,
+
+      zone: zone || "-",
+
+      nominal: selectedNominal,
+
+      price: selectedPrice,
+
+      payment: payment,
+
+      status: "Menunggu Pembayaran"
+
+    })
   );
 
 
@@ -128,17 +133,13 @@ function order() {
     "<br>" +
 
     "Pembayaran: " +
-    payment +
+    payment;
 
-    "<br><br>" +
-
-    "👉 Sekarang klik tombol " +
-    "<b>Lanjut ke Pembayaran</b>.";
 }
 
 
 /* =========================
-   LANJUT KE PEMBAYARAN
+   KE HALAMAN PEMBAYARAN
 ========================= */
 
 function goToPayment() {
@@ -150,7 +151,7 @@ function goToPayment() {
   if (!data) {
 
     alert(
-      "⚠️ Buat pesanan terlebih dahulu!"
+      "⚠️ Buat pesanan terlebih dahulu."
     );
 
     return;
@@ -170,9 +171,7 @@ function checkOrder() {
 
   const orderNumber =
     document.getElementById("orderCheck")
-      .value
-      .trim();
-
+    .value.trim();
 
   const status =
     document.getElementById("status");
@@ -209,6 +208,11 @@ function checkOrder() {
 
     return;
   }
+
+
+  const orderStatus =
+    data.status ||
+    "Menunggu Pembayaran";
 
 
   status.innerHTML =
@@ -249,9 +253,12 @@ function checkOrder() {
 
     "<hr>" +
 
-    "<p>🟡 Status:</p>" +
+    "<p>🟢 Status:</p>" +
 
-    "<h3>Menunggu Pembayaran</h3>" +
+    "<h3>" +
+    orderStatus +
+    "</h3>" +
 
     "</div>";
-    }
+
+}
