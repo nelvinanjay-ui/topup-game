@@ -29,47 +29,104 @@ function order() {
   const result = document.getElementById("result");
 
   if (playerId === "") {
-    result.innerHTML = "⚠️ Masukkan ID Player terlebih dahulu.";
+    result.innerHTML =
+      "⚠️ Masukkan ID Player terlebih dahulu.";
     return;
   }
 
   if (selectedNominal === null) {
-    result.innerHTML = "⚠️ Pilih nominal top up terlebih dahulu.";
+    result.innerHTML =
+      "⚠️ Pilih nominal top up terlebih dahulu.";
     return;
   }
 
   const orderNumber =
     "TOPUP-" + Math.floor(100000 + Math.random() * 900000);
-localStorage.setItem("orderData", JSON.stringify({
-  orderNumber: orderNumber,
-  game: document.getElementById("selectedGame").textContent,
-  playerId: playerId,
-  zone: zone || "-",
-  nominal: selectedNominal,
-  price: selectedPrice,
-  payment: payment
-}));
+
+  localStorage.setItem("orderData", JSON.stringify({
+    orderNumber: orderNumber,
+    game: document.getElementById("selectedGame").textContent,
+    playerId: playerId,
+    zone: zone || "-",
+    nominal: selectedNominal,
+    price: selectedPrice,
+    payment: payment
+  }));
+
   result.innerHTML =
     "✅ Pesanan berhasil dibuat!<br><br>" +
     "<b>Nomor Pesanan: " + orderNumber + "</b><br>" +
     "ID Player: " + playerId + "<br>" +
     "Server/Zone: " + (zone || "-") + "<br>" +
     "Nominal: " + selectedNominal + "<br>" +
-    "Harga: Rp" + selectedPrice.toLocaleString("id-ID") + "<br>" +
+    "Harga: Rp" +
+    selectedPrice.toLocaleString("id-ID") +
+    "<br>" +
     "Pembayaran: " + payment;
 }
 
 function checkOrder() {
-  const orderNumber = document.getElementById("orderCheck").value.trim();
-  const status = document.getElementById("status");
+  const orderNumber =
+    document.getElementById("orderCheck").value.trim();
+
+  const status =
+    document.getElementById("status");
 
   if (orderNumber === "") {
-    status.innerHTML = "⚠️ Masukkan nomor pesanan.";
+    status.innerHTML =
+      "⚠️ Masukkan nomor pesanan terlebih dahulu.";
     return;
   }
 
-  status.innerHTML = "🔎 Pesanan sedang dicek...";
+  const data =
+    JSON.parse(localStorage.getItem("orderData"));
+
+  if (!data) {
+    status.innerHTML =
+      "❌ Data pesanan tidak ditemukan.";
+    return;
+  }
+
+  if (orderNumber !== data.orderNumber) {
+    status.innerHTML =
+      "❌ Nomor pesanan tidak ditemukan.";
+    return;
+  }
+
+  status.innerHTML =
+    "<div>" +
+
+    "<h3>📦 Pesanan Ditemukan</h3>" +
+
+    "<p>Nomor Pesanan:<br>" +
+    "<b>" + data.orderNumber + "</b></p>" +
+
+    "<p>Game:<br>" +
+    "<b>" + data.game + "</b></p>" +
+
+    "<p>ID Player:<br>" +
+    "<b>" + data.playerId + "</b></p>" +
+
+    "<p>Zone:<br>" +
+    "<b>" + data.zone + "</b></p>" +
+
+    "<p>Nominal:<br>" +
+    "<b>" + data.nominal + "</b></p>" +
+
+    "<p>Total:<br>" +
+    "<b>Rp" +
+    data.price.toLocaleString("id-ID") +
+    "</b></p>" +
+
+    "<hr>" +
+
+    "<p>🟡 Status:</p>" +
+
+    "<h3>Menunggu Pembayaran</h3>" +
+
+    "</div>";
 }
+
 function goToPayment() {
   if (selectedNominal === null) {
     alert("⚠️ Pilih nominal top up terlebih dahulu.");
