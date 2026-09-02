@@ -10,6 +10,7 @@
 <body>
 
 <section class="section card">
+
   <h2>💳 Pembayaran</h2>
 
   <p>Pesanan kamu sudah dibuat.</p>
@@ -37,6 +38,7 @@
   <div id="paymentResult" class="result"></div>
 
   <div id="orderDetail" class="result" style="display:none;">
+
     <h3>📋 Detail Pesanan</h3>
 
     <p><b>Nomor Pesanan:</b> <span id="detailOrder">-</span></p>
@@ -46,63 +48,98 @@
     <p><b>Nominal:</b> <span id="detailNominal">-</span></p>
     <p><b>Harga:</b> <span id="detailPrice">-</span></p>
     <p><b>Pembayaran:</b> <span id="detailPayment">-</span></p>
-<div id="paymentInstruction"></div>
+
+    <div id="paymentInstruction"></div>
+
     <hr>
 
-    <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
-  </div>
-<button class="btn full" onclick="demoPayment()">
-  💳 Bayar Sekarang
-</button>
+    <p id="orderStatus">
+      🕐 <b>Status:</b> Menunggu pembayaran
+    </p>
 
-<div id="paymentStatus"></div>
+    <button class="btn full" onclick="demoPayment()">
+      💳 Bayar Sekarang
+    </button>
+
+    <div id="paymentStatus"></div>
+
+  </div>
+
   <button class="btn full" onclick="history.back()">
     ← Kembali
   </button>
+
 </section>
 
 <script>
+
 function choosePayment(method) {
+
   const data = JSON.parse(localStorage.getItem("orderData"));
-let instruction = "";
 
-if (method === "QRIS") {
-  instruction =
-    "<h3>📱 Pembayaran QRIS</h3>" +
-    "<p>Scan QRIS untuk melanjutkan pembayaran.</p>" +
-    "<p>⚠️ QRIS masih dalam mode demo.</p>";
-} else {
-  instruction =
-    "<h3>💳 Instruksi Pembayaran</h3>" +
-    "<p>Metode: <b>" + method + "</b></p>" +
-    "<p>⚠️ Pembayaran masih dalam mode demo.</p>";
-}
+  let instruction = "";
 
-document.getElementById("paymentInstruction").innerHTML = instruction;
+  if (method === "QRIS") {
+
+    instruction =
+      "<h3>📱 Pembayaran QRIS</h3>" +
+      "<p>Scan QRIS untuk melanjutkan pembayaran.</p>" +
+      "<p>⚠️ QRIS masih dalam mode demo.</p>";
+
+  } else {
+
+    instruction =
+      "<h3>💳 Instruksi Pembayaran</h3>" +
+      "<p>Metode: <b>" + method + "</b></p>" +
+      "<p>⚠️ Pembayaran masih dalam mode demo.</p>";
+
+  }
+
+  document.getElementById("paymentInstruction").innerHTML = instruction;
+
   document.getElementById("paymentResult").innerHTML =
     "✅ Metode pembayaran dipilih: <b>" + method + "</b>";
 
   if (data) {
-    document.getElementById("detailOrder").textContent = data.orderNumber;
-    document.getElementById("detailGame").textContent = data.game;
-    document.getElementById("detailPlayer").textContent = data.playerId;
-    document.getElementById("detailZone").textContent = data.zone;
-    document.getElementById("detailNominal").textContent = data.nominal;
+
+    document.getElementById("detailOrder").textContent =
+      data.orderNumber;
+
+    document.getElementById("detailGame").textContent =
+      data.game;
+
+    document.getElementById("detailPlayer").textContent =
+      data.playerId;
+
+    document.getElementById("detailZone").textContent =
+      data.zone;
+
+    document.getElementById("detailNominal").textContent =
+      data.nominal;
+
     document.getElementById("detailPrice").textContent =
       "Rp" + data.price.toLocaleString("id-ID");
+
   }
 
   document.getElementById("detailPayment").textContent = method;
+
   document.getElementById("orderDetail").style.display = "block";
+
 }
+
+
 function demoPayment() {
+
+  document.getElementById("orderStatus").innerHTML =
+    "✅ <b>Status:</b> Pembayaran Berhasil";
+
   document.getElementById("paymentStatus").innerHTML =
     "<br>✅ Pembayaran berhasil (Demo)<br>" +
     "Pesanan kamu sedang diproses.";
 
-  document.getElementById("paymentInstruction").innerHTML +=
-    "<p>✅ <b>Status: Pembayaran Berhasil</b></p>";
-  } 
+}
+
 </script>
 
 </body>
