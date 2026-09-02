@@ -40,12 +40,11 @@
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
-      position: relative;
-      z-index: 10;
     }
 
-    .payment-option:active {
-      background: #eee;
+    .payment-option.active {
+      border-color: #6c5ce7;
+      background: #f1efff;
     }
 
     .btn {
@@ -58,8 +57,6 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
-      position: relative;
-      z-index: 10;
     }
 
     .result {
@@ -69,8 +66,61 @@
       border-radius: 10px;
     }
 
-    #orderDetail {
-      display: none;
+    .waiting {
+      padding: 12px;
+      background: #fff3cd;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .success {
+      padding: 15px;
+      background: #d4edda;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .qris-box {
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 15px;
+      border: 2px solid #ddd;
+    }
+
+    .fake-qr {
+      width: 180px;
+      height: 180px;
+      margin: 15px auto;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 2px;
+      background: white;
+      padding: 8px;
+      border: 2px solid #222;
+    }
+
+    .fake-qr span {
+      background: #222;
+    }
+
+    .fake-qr span:nth-child(3n) {
+      background: white;
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin: 15px 0;
     }
   </style>
 </head>
@@ -81,23 +131,27 @@
 
   <h2>💳 Pembayaran</h2>
 
-  <p>Pesanan kamu sudah dibuat.</p>
+  <p>Silakan pilih metode pembayaran.</p>
 
   <div class="payment-list">
 
-    <button type="button" class="payment-option" onclick="choosePayment('DANA')">
+    <button type="button" class="payment-option"
+      onclick="choosePayment('DANA', this)">
       💙 DANA
     </button>
 
-    <button type="button" class="payment-option" onclick="choosePayment('GoPay')">
+    <button type="button" class="payment-option"
+      onclick="choosePayment('GoPay', this)">
       💚 GoPay
     </button>
 
-    <button type="button" class="payment-option" onclick="choosePayment('OVO')">
+    <button type="button" class="payment-option"
+      onclick="choosePayment('OVO', this)">
       💜 OVO
     </button>
 
-    <button type="button" class="payment-option" onclick="choosePayment('QRIS')">
+    <button type="button" class="payment-option"
+      onclick="choosePayment('QRIS', this)">
       📱 QRIS
     </button>
 
@@ -114,15 +168,19 @@
     <p>ID Player: <b id="detailPlayer">-</b></p>
     <p>Zone: <b id="detailZone">-</b></p>
     <p>Nominal: <b id="detailNominal">-</b></p>
-    <p>Harga: <b id="detailPrice">-</b></p>
+
+    <div class="price" id="detailPrice">
+      Rp0
+    </div>
+
     <p>Pembayaran: <b id="detailPayment">-</b></p>
 
-    <div id="paymentInstruction"></div>
+  </div>
 
-    <hr>
+  <div id="paymentInstruction"></div>
 
-    <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
-
+  <div class="waiting" id="waiting">
+    🕐 <b>Status:</b> Menunggu pembayaran
   </div>
 
   <button type="button" class="btn" onclick="demoPayment()">
@@ -137,69 +195,141 @@
 
 </div>
 
+
 <script>
 
-function choosePayment(method) {
+let selectedMethod = "";
 
-  const data = JSON.parse(localStorage.getItem("orderData"));
 
-  let instruction = "";
+/* Ambil data pesanan */
 
-  if (method === "QRIS") {
+const data = JSON.parse(localStorage.getItem("orderData"));
 
-    instruction =
-      "<h3>📱 Pembayaran QRIS</h3>" +
-      "<p>Scan QRIS untuk melanjutkan pembayaran.</p>" +
-      "<p>⚠️ QRIS masih dalam mode demo.</p>";
+if (data) {
 
-  } else {
+  document.getElementById("detailOrder").textContent =
+    data.orderNumber;
 
-    instruction =
-      "<h3>💳 Instruksi Pembayaran</h3>" +
-      "<p>Metode: <b>" + method + "</b></p>" +
-      "<p>⚠️ Pembayaran masih dalam mode demo.</p>";
+  document.getElementById("detailGame").textContent =
+    data.game;
 
-  }
+  document.getElementById("detailPlayer").textContent =
+    data.playerId;
 
-  document.getElementById("paymentInstruction").innerHTML = instruction;
+  document.getElementById("detailZone").textContent =
+    data.zone;
 
-  document.getElementById("paymentResult").innerHTML =
-    "✅ Metode pembayaran dipilih: <b>" + method + "</b>";
+  document.getElementById("detailNominal").textContent =
+    data.nominal;
 
-  if (data) {
+  document.getElementById("detailPrice").textContent =
+    "Rp" + data.price.toLocaleString("id-ID");
 
-    document.getElementById("detailOrder").textContent =
-      data.orderNumber;
-
-    document.getElementById("detailGame").textContent =
-      data.game;
-
-    document.getElementById("detailPlayer").textContent =
-      data.playerId;
-
-    document.getElementById("detailZone").textContent =
-      data.zone;
-
-    document.getElementById("detailNominal").textContent =
-      data.nominal;
-
-    document.getElementById("detailPrice").textContent =
-      "Rp" + data.price.toLocaleString("id-ID");
-
-  }
-
-  document.getElementById("detailPayment").textContent = method;
-
-  document.getElementById("orderDetail").style.display = "block";
 }
 
 
+/* Pilih pembayaran */
+
+function choosePayment(method, button) {
+
+  selectedMethod = method;
+
+  document.querySelectorAll(".payment-option").forEach(function(btn) {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  document.getElementById("detailPayment").textContent =
+    method;
+
+  document.getElementById("paymentResult").innerHTML =
+    "<div class='result'>✅ Metode pembayaran dipilih: <b>" +
+    method +
+    "</b></div>";
+
+
+  if (method === "QRIS") {
+
+    document.getElementById("paymentInstruction").innerHTML =
+
+      "<div class='qris-box'>" +
+
+      "<h3>📱 Scan QRIS</h3>" +
+
+      "<p>Gunakan aplikasi pembayaran yang mendukung QRIS.</p>" +
+
+      "<div class='fake-qr'>";
+
+    for (let i = 0; i < 100; i++) {
+
+      document.getElementById("paymentInstruction").innerHTML +=
+        "<span></span>";
+
+    }
+
+    document.getElementById("paymentInstruction").innerHTML +=
+
+      "</div>" +
+
+      "<p><b>QRIS DEMO</b></p>" +
+      "<p>⚠️ Ini hanya simulasi dan bukan QRIS pembayaran asli.</p>" +
+
+      "</div>";
+
+  } else {
+
+    document.getElementById("paymentInstruction").innerHTML =
+
+      "<div class='result'>" +
+
+      "<h3>💳 Instruksi Pembayaran</h3>" +
+
+      "<p>Metode: <b>" + method + "</b></p>" +
+
+      "<p>Silakan lakukan pembayaran melalui aplikasi " +
+      method + ".</p>" +
+
+      "<p>⚠️ Mode demo — belum ada transaksi uang asli.</p>" +
+
+      "</div>";
+
+  }
+
+}
+
+
+/* Tombol bayar */
+
 function demoPayment() {
 
+  if (selectedMethod === "") {
+
+    document.getElementById("paymentStatus").innerHTML =
+
+      "<div class='result'>⚠️ Pilih metode pembayaran terlebih dahulu.</div>";
+
+    return;
+
+  }
+
+
+  document.getElementById("waiting").style.display =
+    "none";
+
+
   document.getElementById("paymentStatus").innerHTML =
-    "<div class='result'>" +
-    "✅ <b>Pembayaran berhasil (Demo)</b><br><br>" +
-    "Pesanan kamu sedang diproses." +
+
+    "<div class='success'>" +
+
+    "✅ <b>Pembayaran Berhasil!</b><br><br>" +
+
+    "Pesanan kamu sedang diproses.<br>" +
+
+    "Metode: <b>" + selectedMethod + "</b><br><br>" +
+
+    "🎮 Top up akan diproses dalam mode demo." +
+
     "</div>";
 
 }
