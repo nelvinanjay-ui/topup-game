@@ -529,14 +529,42 @@ function demoPayment() {
       "</div>";
 
     return;
+  }
+
+
+  /* UPDATE STATUS PESANAN */
+
+  const data =
+    JSON.parse(
+      localStorage.getItem("orderData")
+    );
+
+
+  if (data) {
+
+    data.status =
+      "Pembayaran Berhasil";
+
+    data.payment =
+      selectedMethod;
+
+
+    localStorage.setItem(
+      "orderData",
+      JSON.stringify(data)
+    );
 
   }
 
+
+  /* HILANGKAN STATUS MENUNGGU */
 
   document.getElementById(
     "waiting"
   ).style.display = "none";
 
+
+  /* TAMPILKAN BERHASIL */
 
   document.getElementById(
     "paymentStatus"
@@ -556,7 +584,7 @@ function demoPayment() {
 
     "</div>";
 
-}
+  }
 
 
 /* =========================
