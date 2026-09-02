@@ -51,7 +51,11 @@
 
     <p>🕐 <b>Status:</b> Menunggu pembayaran</p>
   </div>
+<button class="btn full" onclick="demoPayment()">
+  💳 Bayar Sekarang
+</button>
 
+<div id="paymentStatus"></div>
   <button class="btn full" onclick="history.back()">
     ← Kembali
   </button>
@@ -91,6 +95,11 @@ document.getElementById("paymentInstruction").innerHTML = instruction;
   document.getElementById("detailPayment").textContent = method;
   document.getElementById("orderDetail").style.display = "block";
 }
+function demoPayment() {
+  document.getElementById("paymentStatus").innerHTML =
+    "<br>✅ Pembayaran berhasil (Demo)<br>" +
+    "Pesanan kamu sedang diproses.";
+    }  
 </script>
 
 </body>
