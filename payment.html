@@ -532,6 +532,57 @@ function demoPayment() {
   }
 
 
+  const data =
+    JSON.parse(
+      localStorage.getItem("orderData")
+    );
+
+
+  if (data) {
+
+    data.status =
+      "Diproses";
+
+    data.payment =
+      selectedMethod;
+
+
+    localStorage.setItem(
+      "orderData",
+      JSON.stringify(data)
+    );
+
+  }
+
+
+  document.getElementById(
+    "waiting"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "paymentStatus"
+  ).innerHTML =
+
+    "<div class='success'>" +
+
+    "✅ <b>Pembayaran Berhasil!</b><br><br>" +
+
+    "Pesanan kamu sedang diproses.<br>" +
+
+    "Metode: <b>" +
+    selectedMethod +
+    "</b><br><br>" +
+
+    "🔵 Status: <b>Diproses</b><br><br>" +
+
+    "🎮 Top up akan diproses dalam mode demo." +
+
+    "</div>";
+
+}
+
+
   /* UPDATE STATUS PESANAN */
 
   const data =
