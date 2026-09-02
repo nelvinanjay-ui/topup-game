@@ -149,3 +149,19 @@ a.btn {
 .payment-option:hover {
   border-color: #6c5ce7;
 }
+.result {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f5f3ff;
+  border-radius: 12px;
+}
+
+.result h3 {
+  margin-top: 0;
+}
+
+.result hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 15px 0;
+}
