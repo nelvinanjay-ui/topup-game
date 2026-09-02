@@ -9,150 +9,603 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
-      background: #f4f6f8;
+      font-family: Arial, sans-serif;
+      background: #f4f4f8;
+      margin: 0;
       padding: 20px;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
       color: #222;
     }
 
-    .subtitle {
+    .card {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .header {
       text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .header p {
       color: #777;
-      margin-bottom: 25px;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-top: 22px;
+    }
+
+    .payment-list {
+      display: grid;
+      gap: 10px;
+      margin: 15px 0;
     }
 
     .payment-option {
+      width: 100%;
+      padding: 16px;
+      background: white;
       border: 2px solid #ddd;
-      padding: 15px;
-      margin-bottom: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
+      font-size: 16px;
       cursor: pointer;
+      text-align: left;
       transition: 0.2s;
     }
 
     .payment-option:hover {
-      border-color: #4f46e5;
+      border-color: #6c5ce7;
     }
 
-    .payment-option.selected {
-      border-color: #4f46e5;
-      background: #f0f0ff;
+    .payment-option.active {
+      border-color: #6c5ce7;
+      background: #f1efff;
     }
 
-    .payment-option input {
-      margin-right: 10px;
+    .invoice {
+      margin-top: 20px;
+      border: 1px solid #e5e5e5;
+      border-radius: 15px;
+      overflow: hidden;
     }
 
-    .pay-button {
+    .invoice-header {
+      background: #6c5ce7;
+      color: white;
+      padding: 18px;
+    }
+
+    .invoice-header h3 {
+      margin: 0 0 5px;
+    }
+
+    .invoice-header p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .invoice-body {
+      padding: 18px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 9px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #777;
+    }
+
+    .value {
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .price-box {
+      margin-top: 15px;
+      padding: 16px;
+      background: #f5f3ff;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .price-label {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .price {
+      font-size: 27px;
+      font-weight: bold;
+      color: #6c5ce7;
+      margin-top: 5px;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f5f3ff;
+      border-radius: 12px;
+    }
+
+    .waiting {
+      padding: 15px;
+      background: #fff3cd;
+      border-radius: 12px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .timer {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .success {
+      padding: 17px;
+      background: #d4edda;
+      border-radius: 12px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .qris-box {
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 15px;
+      border: 2px solid #ddd;
+    }
+
+    .fake-qr {
+      width: 180px;
+      height: 180px;
+      margin: 15px auto;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 2px;
+      background: white;
+      padding: 8px;
+      border: 2px solid #222;
+    }
+
+    .fake-qr span {
+      background: #222;
+    }
+
+    .fake-qr span:nth-child(3n) {
+      background: white;
+    }
+
+    .btn {
       width: 100%;
       padding: 15px;
+      margin-top: 12px;
       border: none;
-      border-radius: 10px;
-      background: #4f46e5;
+      border-radius: 12px;
+      background: #6c5ce7;
       color: white;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-back {
+      background: #eee;
+      color: #333;
+    }
+
+    .demo-note {
       margin-top: 15px;
-    }
-
-    .pay-button:hover {
-      background: #3730a3;
-    }
-
-    #success {
-      display: none;
+      font-size: 12px;
+      color: #888;
       text-align: center;
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      background: #dcfce7;
-      color: #166534;
-      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="card">
 
-    <h1>Pembayaran</h1>
-    <p class="subtitle">Pilih metode pembayaran kamu</p>
+  <div class="header">
+    <h2>💳 Pembayaran</h2>
+    <p>Selesaikan pembayaran pesanan kamu</p>
+  </div>
 
-    <div class="payment-option" onclick="selectPayment(this)">
-      <input type="radio" name="payment" value="DANA">
-      DANA
-    </div>
 
-    <div class="payment-option" onclick="selectPayment(this)">
-      <input type="radio" name="payment" value="GoPay">
-      GoPay
-    </div>
+  <div class="section-title">
+    Pilih Metode Pembayaran
+  </div>
 
-    <div class="payment-option" onclick="selectPayment(this)">
-      <input type="radio" name="payment" value="OVO">
-      OVO
-    </div>
+  <div class="payment-list">
 
-    <div class="payment-option" onclick="selectPayment(this)">
-      <input type="radio" name="payment" value="QRIS">
-      QRIS
-    </div>
-
-    <button class="pay-button" onclick="bayarSekarang()">
-      Bayar Sekarang
+    <button type="button"
+      class="payment-option"
+      onclick="choosePayment('DANA', this)">
+      💙 DANA
     </button>
 
-    <div id="success">
-      ✅ Pembayaran Berhasil!<br><br>
-      Pesanan kamu sudah dibuat.
+    <button type="button"
+      class="payment-option"
+      onclick="choosePayment('GoPay', this)">
+      💚 GoPay
+    </button>
+
+    <button type="button"
+      class="payment-option"
+      onclick="choosePayment('OVO', this)">
+      💜 OVO
+    </button>
+
+    <button type="button"
+      class="payment-option"
+      onclick="choosePayment('QRIS', this)">
+      📱 QRIS
+    </button>
+
+  </div>
+
+
+  <div id="paymentResult"></div>
+
+
+  <!-- INVOICE -->
+
+  <div class="invoice">
+
+    <div class="invoice-header">
+      <h3>📋 Ringkasan Pesanan</h3>
+      <p>TopUpKu</p>
+    </div>
+
+    <div class="invoice-body">
+
+      <div class="row">
+        <span class="label">Nomor Pesanan</span>
+        <span class="value" id="detailOrder">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Game</span>
+        <span class="value" id="detailGame">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">ID Player</span>
+        <span class="value" id="detailPlayer">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Zone</span>
+        <span class="value" id="detailZone">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Nominal</span>
+        <span class="value" id="detailNominal">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Pembayaran</span>
+        <span class="value" id="detailPayment">-</span>
+      </div>
+
+      <div class="price-box">
+
+        <div class="price-label">
+          Total Pembayaran
+        </div>
+
+        <div class="price" id="detailPrice">
+          Rp0
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
-  <script>
-    function selectPayment(element) {
-      document.querySelectorAll(".payment-option").forEach(function(option) {
-        option.classList.remove("selected");
-      });
 
-      element.classList.add("selected");
-      element.querySelector("input").checked = true;
+  <div id="paymentInstruction"></div>
+
+
+  <!-- STATUS -->
+
+  <div class="waiting" id="waiting">
+
+    🕐 <b>Status: Menunggu pembayaran</b>
+
+    <div class="timer">
+      Sisa waktu:
+      <span id="countdown">15:00</span>
+    </div>
+
+  </div>
+
+
+  <button type="button"
+    class="btn"
+    onclick="demoPayment()">
+
+    💳 Bayar Sekarang
+
+  </button>
+
+
+  <div id="paymentStatus"></div>
+
+
+  <button type="button"
+    class="btn btn-back"
+    onclick="history.back()">
+
+    ← Kembali
+
+  </button>
+
+
+  <div class="demo-note">
+    ⚠️ TopUpKu saat ini masih dalam mode demo.
+    Belum ada transaksi uang asli.
+  </div>
+
+</div>
+
+
+<script>
+
+let selectedMethod = "";
+
+
+/* =========================
+   DATA PESANAN
+========================= */
+
+const data = JSON.parse(
+  localStorage.getItem("orderData")
+);
+
+if (data) {
+
+  document.getElementById("detailOrder").textContent =
+    data.orderNumber;
+
+  document.getElementById("detailGame").textContent =
+    data.game;
+
+  document.getElementById("detailPlayer").textContent =
+    data.playerId;
+
+  document.getElementById("detailZone").textContent =
+    data.zone;
+
+  document.getElementById("detailNominal").textContent =
+    data.nominal;
+
+  document.getElementById("detailPrice").textContent =
+    "Rp" + data.price.toLocaleString("id-ID");
+
+}
+
+
+/* =========================
+   PILIH PEMBAYARAN
+========================= */
+
+function choosePayment(method, button) {
+
+  selectedMethod = method;
+
+  document.querySelectorAll(".payment-option")
+    .forEach(function(btn) {
+
+      btn.classList.remove("active");
+
+    });
+
+  button.classList.add("active");
+
+
+  document.getElementById("detailPayment")
+    .textContent = method;
+
+
+  document.getElementById("paymentResult")
+    .innerHTML =
+
+    "<div class='result'>" +
+    "✅ Metode pembayaran dipilih: " +
+    "<b>" + method + "</b>" +
+    "</div>";
+
+
+  if (method === "QRIS") {
+
+    document.getElementById("paymentInstruction")
+      .innerHTML =
+
+      "<div class='qris-box'>" +
+
+      "<h3>📱 Scan QRIS</h3>" +
+
+      "<p>Gunakan aplikasi pembayaran yang mendukung QRIS.</p>" +
+
+      "<div class='fake-qr'>";
+
+    for (let i = 0; i < 100; i++) {
+
+      document.getElementById(
+        "paymentInstruction"
+      ).innerHTML += "<span></span>";
+
     }
 
-    function bayarSekarang() {
-      const payment = document.querySelector(
-        'input[name="payment"]:checked'
-      );
+    document.getElementById(
+      "paymentInstruction"
+    ).innerHTML +=
 
-      if (!payment) {
-        alert("Silakan pilih metode pembayaran terlebih dahulu!");
-        return;
-      }
+      "</div>" +
 
-      document.getElementById("success").style.display = "block";
-    }
-  </script>
+      "<p><b>QRIS DEMO</b></p>" +
+
+      "<p>⚠️ Ini hanya simulasi dan bukan QRIS asli.</p>" +
+
+      "</div>";
+
+  }
+
+  else {
+
+    document.getElementById(
+      "paymentInstruction"
+    ).innerHTML =
+
+      "<div class='result'>" +
+
+      "<h3>💳 Instruksi Pembayaran</h3>" +
+
+      "<p>Metode: <b>" +
+      method +
+      "</b></p>" +
+
+      "<p>Silakan lakukan pembayaran melalui aplikasi " +
+      method +
+      ".</p>" +
+
+      "<p>⚠️ Mode demo — belum ada transaksi uang asli.</p>" +
+
+      "</div>";
+
+  }
+
+}
+
+
+/* =========================
+   BAYAR DEMO
+========================= */
+
+function demoPayment() {
+
+  if (selectedMethod === "") {
+
+    document.getElementById(
+      "paymentStatus"
+    ).innerHTML =
+
+      "<div class='result'>" +
+      "⚠️ Pilih metode pembayaran terlebih dahulu." +
+      "</div>";
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "waiting"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "paymentStatus"
+  ).innerHTML =
+
+    "<div class='success'>" +
+
+    "✅ <b>Pembayaran Berhasil!</b><br><br>" +
+
+    "Pesanan kamu sedang diproses.<br>" +
+
+    "Metode: <b>" +
+    selectedMethod +
+    "</b><br><br>" +
+
+    "🎮 Top up akan diproses dalam mode demo." +
+
+    "</div>";
+
+}
+
+
+/* =========================
+   COUNTDOWN 15 MENIT
+========================= */
+
+let timeLeft = 15 * 60;
+
+const countdown = setInterval(function() {
+
+  const minutes =
+    Math.floor(timeLeft / 60);
+
+  const seconds =
+    timeLeft % 60;
+
+
+  document.getElementById(
+    "countdown"
+  ).textContent =
+
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0");
+
+
+  timeLeft--;
+
+
+  if (timeLeft < 0) {
+
+    clearInterval(countdown);
+
+    document.getElementById(
+      "countdown"
+    ).textContent = "00:00";
+
+
+    document.getElementById(
+      "waiting"
+    ).innerHTML =
+
+      "❌ <b>Waktu pembayaran telah habis.</b>";
+
+  }
+
+}, 1000);
+
+</script>
 
 </body>
-        </html>
+          </html>
